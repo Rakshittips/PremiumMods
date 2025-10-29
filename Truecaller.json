@@ -1,8 +1,8 @@
 {
   "showDialog": true,
   "title": "Update Available",
-  "message": "An Update is available on your device",
-  "showCloseButton": false,
+  "message": "Update is available on your device",
+  "showCloseButton": true,
   "UpdateButtonUrl": "https://t.me/ELLA_MODS",
   "showUpdateButton": true,
   "UpdateButtonText": "Update Your Device"
