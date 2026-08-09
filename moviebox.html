@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MovieBox Premium — Unlimited Movies & Shows</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root{
+    --bg:#0a0a0f;
+    --bg-soft:#111116;
+    --card:rgba(255,255,255,0.04);
+    --card-border:rgba(255,255,255,0.08);
+    --gold:#d4af37;
+    --crimson:#dc2626;
+    --text:#f4f4f5;
+    --muted:#8b8b93;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Plus Jakarta Sans',sans-serif;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.brand{font-family:'Syne',sans-serif;}
+
+  /* film strip texture */
+  .filmstrip{
+    position:fixed; top:0; left:0; width:100%; height:100%;
+    pointer-events:none; z-index:0; opacity:0.05;
+    background-image:
+      repeating-linear-gradient(90deg, transparent 0 40px, rgba(255,255,255,0.4) 40px 42px),
+      repeating-linear-gradient(0deg, transparent 0 60px, rgba(255,255,255,0.15) 60px 62px);
+  }
+
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 6%; position:relative; z-index:2;
+  }
+  .brand{font-size:13px; font-weight:800; letter-spacing:0.5px;}
+  .brand span{color:var(--gold);}
+  .nav-cta{
+    background:linear-gradient(135deg,var(--gold),#f4d675);
+    color:#0a0a0f; font-weight:700; font-size:14px;
+    padding:10px 20px; border-radius:999px; text-decoration:none;
+  }
+
+  /* HERO */
+  .hero{
+    position:relative; z-index:2; padding:64px 6% 80px; text-align:center;
+    max-width:760px; margin:0 auto;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--card); border:1px solid var(--card-border);
+    padding:6px 14px; border-radius:999px; font-size:12px; color:var(--gold);
+    letter-spacing:1px; text-transform:uppercase; margin-bottom:24px;
+  }
+  .eyebrow::before{content:"●"; color:var(--crimson); font-size:8px;}
+  .hero h1{
+    font-size:25px; line-height:1.25; font-weight:800; margin-bottom:16px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    background:linear-gradient(135deg,var(--gold),var(--crimson));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero p{color:var(--muted); font-size:16px; line-height:1.6; margin-bottom:32px;}
+
+  /* Ticket-style download button — signature element */
+  .ticket{
+    position:relative; display:inline-flex; align-items:center; gap:14px;
+    background:linear-gradient(135deg,#1a1a22,#0d0d12);
+    border:1px solid var(--card-border);
+    border-radius:14px; padding:16px 28px 16px 22px;
+    text-decoration:none; color:var(--text);
+    box-shadow:0 0 0 0 rgba(212,175,55,0.4);
+    animation:pulse 2.4s infinite;
+    transition:transform .2s ease;
+  }
+  .ticket:hover{transform:translateY(-2px);}
+  .ticket::before, .ticket::after{
+    content:""; position:absolute; top:50%; transform:translateY(-50%);
+    width:16px; height:16px; background:var(--bg); border-radius:50%;
+  }
+  .ticket::before{left:-8px;}
+  .ticket::after{right:-8px;}
+  .ticket-divider{
+    width:1px; align-self:stretch;
+    background-image:repeating-linear-gradient(0deg, var(--card-border) 0 6px, transparent 6px 12px);
+  }
+  .ticket-icon{
+    width:36px; height:36px; border-radius:50%;
+    background:linear-gradient(135deg,var(--gold),var(--crimson));
+    display:flex; align-items:center; justify-content:center; font-size:16px;
+  }
+  .ticket-text .label{font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:1px;}
+  .ticket-text .value{font-size:16px; font-weight:700;}
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(212,175,55,0.35);}
+    70%{box-shadow:0 0 0 12px rgba(212,175,55,0);}
+    100%{box-shadow:0 0 0 0 rgba(212,175,55,0);}
+  }
+
+  .meta-row{
+    display:flex; justify-content:center; gap:28px; margin-top:28px;
+    font-size:13px; color:var(--muted);
+  }
+  .meta-row b{color:var(--text); display:block; font-size:18px; font-family:'Syne',sans-serif;}
+
+  /* FEATURES */
+  .section{position:relative; z-index:2; padding:60px 6%; max-width:1000px; margin:0 auto;}
+  .section h2{font-size:16px; margin-bottom:8px;}
+  .section .sub{color:var(--muted); font-size:14px; margin-bottom:32px;}
+  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px;}
+  .feature{
+    background:var(--card); border:1px solid var(--card-border);
+    border-radius:16px; padding:22px;
+  }
+  .feature .icon{font-size:22px; margin-bottom:12px;}
+  .feature h3{font-size:12px; margin-bottom:6px; font-weight:700;}
+  .feature p{font-size:13px; color:var(--muted); line-height:1.5;}
+
+  /* STEPS */
+  .steps{display:flex; flex-direction:column; gap:0; margin-top:8px;}
+  .step{
+    display:flex; gap:16px; padding:18px 0;
+    border-bottom:1px solid var(--card-border);
+  }
+  .step:last-child{border-bottom:none;}
+  .step .num{
+    font-family:'Syne',sans-serif; font-weight:800; font-size:14px;
+    color:var(--gold); min-width:28px;
+  }
+  .step h4{font-size:13px; margin-bottom:4px;}
+  .step p{font-size:13px; color:var(--muted);}
+
+  footer{
+    position:relative; z-index:2; text-align:center; padding:36px 6% 48px;
+    color:var(--muted); font-size:13px; border-top:1px solid var(--card-border); margin-top:20px;
+  }
+  footer a{color:var(--gold); text-decoration:none;}
+
+  .toast{
+    position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px);
+    background:#1a1a22; border:1px solid var(--card-border);
+    padding:12px 20px; border-radius:10px; font-size:13px;
+    opacity:0; pointer-events:none; transition:all .3s ease; z-index:10;
+  }
+  .toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+  @media(max-width:600px){
+    .hero h1{font-size:21px;}
+    .meta-row{gap:18px; flex-wrap:wrap;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .ticket{animation:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="filmstrip"></div>
+
+<nav>
+  <div class="brand">Movie<span>Box</span> Premium</div>
+  <a href="#download" class="nav-cta">Get App</a>
+</nav>
+
+<section class="hero">
+  <div class="eyebrow">Version:- V4.0.01.0807.03</div>
+  <h1>Every movie.<br>Every show.<br><em>Zero interruptions.</em></h1>
+  <p>MovieBox Premium unlocks HD streaming, offline downloads, and every title in the library — no ads, no waiting, no watermarks.</p>
+
+  <a href="#" class="ticket" id="downloadBtn">
+    <div class="ticket-icon"><i class="fa-solid fa-play"></i></div>
+    <div class="ticket-text">
+      <div class="label">Download</div>
+      <div class="value">MovieBox Premium APK</div>
+    </div>
+    <div class="ticket-divider"></div>
+    <div class="ticket-text">
+      <div class="label">Size</div>
+      <div class="value">42 MB</div>
+    </div>
+  </a>
+
+  <div class="meta-row">
+    <div><b>50K+</b>Titles</div>
+    <div><b>4.8★</b>Rating</div>
+    <div><b>0</b>Ads</div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Built for the way you actually watch</h2>
+  <div class="sub">No subscriptions, no interruptions — just the library.</div>
+  <div class="grid">
+    <div class="feature">
+      <div class="icon"><i class="fa-solid fa-film"></i></div>
+      <h3>Full Library Access</h3>
+      <p>Every movie and series unlocked from day one, including new releases.</p>
+    </div>
+    <div class="feature">
+      <div class="icon"><i class="fa-solid fa-cloud-arrow-down"></i></div>
+      <h3>Offline Downloads</h3>
+      <p>Save titles in HD and watch anywhere, even without data.</p>
+    </div>
+    <div class="feature">
+      <div class="icon"><i class="fa-solid fa-ban"></i></div>
+      <h3>Zero Ads</h3>
+      <p>No pre-rolls, no mid-roll breaks — playback that never stops.</p>
+    </div>
+    <div class="feature">
+      <div class="icon"><i class="fa-solid fa-moon"></i></div>
+      <h3>Dark Cinema Mode</h3>
+      <p>A theatre-tuned interface built for late-night marathons.</p>
+    </div>
+    <div class="feature">
+      <div class="icon"><i class="fa-solid fa-bolt"></i></div>
+      <h3>Fast Servers</h3>
+      <p>Multiple stream mirrors so playback starts in seconds.</p>
+    </div>
+    <div class="feature">
+      <div class="icon"><i class="fa-solid fa-rotate"></i></div>
+      <h3>Auto Updates</h3>
+      <p>In-app updater keeps the library and app current, always.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="download">
+  <h2>Install in three steps</h2>
+  <div class="sub">Direct APK, no third-party store needed.</div>
+  <div class="steps">
+    <div class="step">
+      <div class="num">01</div>
+      <div><h4>Download the APK</h4><p>Tap the ticket above to grab the latest build.</p></div>
+    </div>
+    <div class="step">
+      <div class="num">02</div>
+      <div><h4>Allow unknown sources</h4><p>Enable installs from your browser or file manager when prompted.</p></div>
+    </div>
+    <div class="step">
+      <div class="num">03</div>
+      <div><h4>Open & watch</h4><p>Launch MovieBox Premium — the full library is ready instantly.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Built by <a href="https://t.me/Mr_Rakshit_2_0" target="_blank">Rakshittips</a> ·
+  <a href="https://github.com/Rakshittips" target="_blank">GitHub</a>
+</footer>
+
+<div class="toast" id="toast">Update your download link in the code</div>
+
+<script>
+  document.getElementById('downloadBtn').addEventListener('click', function(e){
+    e.preventDefault();
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(()=>toast.classList.remove('show'), 2200);
+  });
+</script>
+
+</body>
+</html>
