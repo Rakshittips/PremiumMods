@@ -145,14 +145,6 @@
   }
   footer a{color:var(--gold); text-decoration:none;}
 
-  .toast{
-    position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px);
-    background:#1a1a22; border:1px solid var(--card-border);
-    padding:12px 20px; border-radius:10px; font-size:13px;
-    opacity:0; pointer-events:none; transition:all .3s ease; z-index:10;
-  }
-  .toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
-
   @media(max-width:600px){
     .hero h1{font-size:21px;}
     .meta-row{gap:18px; flex-wrap:wrap;}
@@ -161,6 +153,16 @@
   @media (prefers-reduced-motion: reduce){
     .ticket{animation:none;}
   }
+  
+    /* Footer */
+  footer { padding:60px 0; border-top:1px solid var(--border-color); margin-top:60px; text-align:center; }
+  .footer-links { display:flex; justify-content:center; gap:24px; margin-bottom:24px; flex-wrap:wrap; }
+  .footer-links a { color:var(--text-secondary); text-decoration:none; font-size:0.95rem; display:inline-flex; align-items:center; gap:8px; transition:color .2s ease; }
+  .footer-links a:hover { color:var(--text-primary); }
+  footer p { color:var(--text-tertiary); font-size:0.9rem; }
+  
+    .container { width: min(1100px, 90%); margin: 0 auto; }
+    
 </style>
 </head>
 <body>
@@ -177,7 +179,7 @@
   <h1>Every movie.<br>Every show.<br><em>Zero interruptions.</em></h1>
   <p>MovieBox Premium unlocks HD streaming, offline downloads, and every title in the library — no ads, no waiting, no watermarks.</p>
 
-  <a href="https://devuploads.com/am05i7ow6qyy" class="ticket" id="downloadBtn">
+  <a href="https://devuploads.com/am05i7ow6qyy" class="ticket" id="downloadBtn" target="_blank" rel="noopener">
     <div class="ticket-icon"><i class="fa-solid fa-play"></i></div>
     <div class="ticket-text">
       <div class="label">Download</div>
@@ -254,20 +256,15 @@
 </section>
 
 <footer>
-  Built by <a href="https://t.me/Mr_Rakshit_2_0" target="_blank">Rakshittips</a> ·
-  <a href="https://github.com/Rakshittips" target="_blank">GitHub</a>
+  <div class="container">
+    <div class="footer-links">
+      <a href="https://github.com/Rakshittips"><i class="fa-brands fa-github"></i> GitHub</a>
+      <a href="https://rakshittips.github.io/Rakshittips"><i class="fa-solid fa-globe"></i> Rakshittips</a>
+      <a href="https://t.me/Mr_Rakshit_2_0"><i class="fa-brands fa-telegram"></i>Telegram</a>
+    </div>
+    <p>Built with creativity, simplicity and curiosity.</p>
+  </div>
 </footer>
-
-<div class="toast" id="toast">Update your download link in the code</div>
-
-<script>
-  document.getElementById('downloadBtn').addEventListener('click', function(e){
-    e.preventDefault();
-    const toast = document.getElementById('toast');
-    toast.classList.add('show');
-    setTimeout(()=>toast.classList.remove('show'), 2200);
-  });
-</script>
 
 </body>
 </html>
